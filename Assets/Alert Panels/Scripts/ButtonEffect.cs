@@ -1,11 +1,10 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using UnityEngine.EventSystems;
 
 namespace com.ondad.alertpanels
 {
-    public class ButtonEffect : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
+    public class ButtonEffect : MonoBehaviour
     {
         private float bounceStrength = 0.5f; 
 
@@ -15,6 +14,7 @@ namespace com.ondad.alertpanels
         private void Start()
         {
             initScale = transform.localScale.x;
+
         }
 
         private void OnDisable()
@@ -23,9 +23,11 @@ namespace com.ondad.alertpanels
             LeanTween.cancel(tweenId);
         }
 
-        public void OnPointerEnter(PointerEventData eventData)
+        public void OnHover(PointerEventData eventData)
         {
             // Cancel any existing tween
+            if (eventData.pointerEnter.GetComponent<Button>() == null) return;
+
             LeanTween.cancel(tweenId);
             // Create new tween with bounce effect
             tweenId = LeanTween.scale(eventData.pointerEnter.gameObject, Vector3.one * AlertPanel_Config.Instance.alertConfig.uiButtonHoverScale, AlertPanel_Config.Instance.alertConfig.uiBtnAnimSpeed)
@@ -34,8 +36,10 @@ namespace com.ondad.alertpanels
                 .id;
         }
 
-        public void OnPointerExit(PointerEventData eventData)
+        public void OnExitHover(PointerEventData eventData)
         {
+            if (eventData.pointerEnter.GetComponent<Button>() == null) return;
+
             // Cancel any existing tween
             LeanTween.cancel(tweenId);
 

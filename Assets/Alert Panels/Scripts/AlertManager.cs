@@ -10,8 +10,13 @@ namespace com.ondad.alertpanels
     {
         [SerializeField]
         private GameObject blurBG;
+
         [SerializeField]
         private AlertPanel_Info alertInfo;
+        [SerializeField]
+        private AlertPanel_Warning alertWarning;
+        [SerializeField]
+        private AlertPanel_Error alertError;
 
         private static AlertManager _instance;
 
@@ -29,9 +34,21 @@ namespace com.ondad.alertpanels
             blurBG.SetActive(isBlurImgActive);
         }
 
-        public void ShowInfoPanel(string bodyContent, Action exitAction = null)
+        public void ShowInfoPanel(string bodyContent, Action exitAction = null, Action okeyAction = null)
         {
-            alertInfo.ShowPanel(bodyContent, exitAction);
+            alertInfo.ShowPanel(bodyContent, exitAction, okeyAction);
+        }
+        public void ShowWarningPanel(string bodyContent, Action exitAction = null, Action okeyAction = null)
+        {
+            alertWarning.ShowPanel(bodyContent, exitAction, okeyAction);
+        }
+        public void ShowErrorPanel(string bodyContent, Action exitAction = null, Action okeyAction = null)
+        {
+            alertError.ShowPanel(bodyContent, exitAction, okeyAction);
+        }
+        public void ShowConfirmationPanel(string bodyContent, Action exitAction = null, Action okeyAction = null)
+        {
+            alertInfo.ShowPanel(bodyContent, exitAction, okeyAction);
         }
 
     }

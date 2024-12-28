@@ -24,16 +24,12 @@ namespace com.ondad.alertpanels
         public void ShowPanel(string bodyContent, Action exitAction = null)
         {
             bodyBtn.text = bodyContent;
-
-            if (exitAction != null)
-            {
-                this.exitAction = exitAction;
-            }
+            if (exitAction != null) this.exitAction = exitAction;
 
             ShowAnimation();
         }
 
-        public void ExitPanel()
+        void ExitPanel()
         {
             HideAnimation();
 

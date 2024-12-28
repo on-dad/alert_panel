@@ -1,13 +1,10 @@
-using System.Collections;
-using System.Collections.Generic;
+using System;
 using UnityEngine;
 using UnityEngine.UI;
-using TMPro;
-using System;
 
 namespace com.ondad.alertpanels
 {
-    public class AlertPanel_Info : AlertPanel
+    public class AlertPanel_Error : AlertPanel
     {
         [SerializeField] private Button okeyBtn;
         Action okeyAction;
@@ -20,7 +17,7 @@ namespace com.ondad.alertpanels
         public void ShowPanel(string bodyContent, Action exitAction = null, Action okeyAction = null)
         {
             if (okeyAction != null) this.okeyAction = okeyAction;
-            ShowPanel(bodyContent, exitAction);            
+            ShowPanel(bodyContent, exitAction);
         }
 
         void OkeyBtn()
