@@ -316,7 +316,7 @@ GameObject:
   - component: {fileID: 707845685}
   - component: {fileID: 707845684}
   m_Layer: 5
-  m_Name: ShowInfoPanel_Btn (3)
+  m_Name: ShowConfirmationPanel_Btn
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -669,7 +669,7 @@ GameObject:
   - component: {fileID: 1349701094}
   - component: {fileID: 1349701093}
   m_Layer: 5
-  m_Name: ShowInfoConfirmationPanel_Btn
+  m_Name: ShowWarningPanel_Btn
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -754,7 +754,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 283901482}
         m_TargetAssemblyTypeName: com.ondad.alertpanels.TestAlert, Assembly-CSharp
-        m_MethodName: ShowAlertPanelInfo
+        m_MethodName: ShowAlertPanelWarning
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -1098,7 +1098,7 @@ GameObject:
   - component: {fileID: 1778247687}
   - component: {fileID: 1778247686}
   m_Layer: 5
-  m_Name: ShowInfoPanel_Btn (2)
+  m_Name: ShowErrorPanel_Btn
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1183,7 +1183,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 283901482}
         m_TargetAssemblyTypeName: com.ondad.alertpanels.TestAlert, Assembly-CSharp
-        m_MethodName: ShowAlertPanelInfo
+        m_MethodName: ShowAlertPanelError
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -1609,6 +1609,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 4211851902946720031, guid: 43f71a6ca680446af9cda0ef4d55a1c0, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6540098045629505099, guid: 43f71a6ca680446af9cda0ef4d55a1c0, type: 3}
       propertyPath: m_Name
       value: Canvas_AlertPanel

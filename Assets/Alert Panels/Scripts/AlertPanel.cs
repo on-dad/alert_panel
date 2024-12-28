@@ -10,18 +10,16 @@ namespace com.ondad.alertpanels
         [SerializeField] private Button exitBtn;
         [SerializeField] private TextMeshProUGUI bodyBtn;
 
-        private Vector2 initScale = Vector2.zero;
         private int tweenId;
         private float bounceStrength = 0.5f;
         private Action exitAction;
 
-        private void Awake()
+        private void Start()
         {
-            initScale = transform.localScale;
             exitBtn.onClick.AddListener(ExitPanel);
         }
 
-        public void ShowPanel(string bodyContent, Action exitAction = null)
+        public void DisplayPanel(string bodyContent, Action exitAction = null)
         {
             bodyBtn.text = bodyContent;
             if (exitAction != null) this.exitAction = exitAction;
@@ -29,7 +27,7 @@ namespace com.ondad.alertpanels
             ShowAnimation();
         }
 
-        void ExitPanel()
+        protected void ExitPanel()
         {
             HideAnimation();
 
@@ -45,7 +43,7 @@ namespace com.ondad.alertpanels
             LeanTween.cancel(tweenId);
             EnablePanel();
 
-            tweenId = LeanTween.scale(gameObject, initScale, AlertPanel_Config.Instance.alertConfig.uiPanelAnimSpeed)
+            tweenId = LeanTween.scale(gameObject, Vector2.one, AlertPanel_Config.Instance.alertConfig.uiPanelAnimSpeed)
                 .setEase(LeanTweenType.easeInBounce)
                 .setOvershoot(bounceStrength)
                 .id;
@@ -54,19 +52,19 @@ namespace com.ondad.alertpanels
         void HideAnimation()
         {
             LeanTween.cancel(tweenId);
-
             tweenId = LeanTween.scale(gameObject, Vector2.zero, AlertPanel_Config.Instance.alertConfig.uiPanelAnimSpeed)
                 .setEase(LeanTweenType.easeOutBounce)
                 .setOvershoot(bounceStrength).setOnComplete(DisablePanel)
                 .id;
         }
 
-        protected void EnablePanel()
+        private void EnablePanel()
         {
             AlertManager.GetInstance().Enable_Disable_BlurImg(true);
             gameObject.SetActive(true);
+            gameObject.transform.localScale = Vector2.zero;
         }
-        protected void DisablePanel()
+        private void DisablePanel()
         {
             gameObject.SetActive(false);
             AlertManager.GetInstance().Enable_Disable_BlurImg(false);

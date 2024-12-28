@@ -16,7 +16,7 @@ namespace com.ondad.alertpanels {
         public void ShowPanel(string bodyContent, Action exitAction = null, Action okeyAction = null)
         {
             if (okeyAction != null) this.okeyAction = okeyAction;
-            ShowPanel(bodyContent, exitAction);
+            DisplayPanel(bodyContent, exitAction);
         }
 
         void OkeyBtn()
@@ -26,6 +26,8 @@ namespace com.ondad.alertpanels {
                 okeyAction.Invoke();
                 okeyAction = null;
             }
+
+            ExitPanel();
         }
     }
 }
