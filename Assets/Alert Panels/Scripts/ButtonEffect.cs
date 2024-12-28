@@ -7,13 +7,15 @@ namespace com.ondad.alertpanels
 {
     public class ButtonEffect : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
     {
-        [Header("Scale Settings")]
-        [SerializeField] private float hoveredScale = 1.2f;
-        [SerializeField] private float normalScale = 1.0f;
-        [SerializeField] private float animationDuration = 0.25f;
-        [SerializeField] private float bounceStrength = 0.5f; // Controls how pronounced the bounce is
+        private float bounceStrength = 0.5f; 
 
         private int tweenId;
+        private float initScale;
+
+        private void Start()
+        {
+            initScale = transform.localScale.x;
+        }
 
         private void OnDisable()
         {
@@ -26,7 +28,7 @@ namespace com.ondad.alertpanels
             // Cancel any existing tween
             LeanTween.cancel(tweenId);
             // Create new tween with bounce effect
-            tweenId = LeanTween.scale(eventData.pointerEnter.gameObject, Vector3.one * hoveredScale, animationDuration)
+            tweenId = LeanTween.scale(eventData.pointerEnter.gameObject, Vector3.one * AlertPanel_Config.Instance.alertConfig.uiButtonHoverScale, AlertPanel_Config.Instance.alertConfig.uiAnimSpeed)
                 .setEase(LeanTweenType.easeOutBounce) // Bounce effect when scaling up
                 .setOvershoot(bounceStrength) // Adjust bounce intensity
                 .id;
@@ -38,7 +40,7 @@ namespace com.ondad.alertpanels
             LeanTween.cancel(tweenId);
 
             // Create new tween with bounce effect
-            tweenId = LeanTween.scale(eventData.pointerEnter.gameObject, Vector3.one * normalScale, animationDuration)
+            tweenId = LeanTween.scale(eventData.pointerEnter.gameObject, Vector3.one * initScale, AlertPanel_Config.Instance.alertConfig.uiAnimSpeed)
                 .setEase(LeanTweenType.easeOutBounce) // Bounce effect when scaling down
                 .setOvershoot(bounceStrength) // Adjust bounce intensity
                 .id;
