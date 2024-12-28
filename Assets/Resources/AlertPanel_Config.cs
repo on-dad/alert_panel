@@ -43,8 +43,10 @@ public class AlertPanel_Config : ScriptableObject
         public float uiButtonHoverScale = 1.2f;
 
         [Tooltip("Default UI Button speed")]
-        public float uiAnimSpeed = 0.1f;
+        public float uiBtnAnimSpeed = 0.1f;
 
+        [Tooltip("Default UI Panel speed")]
+        public float uiPanelAnimSpeed = 0.1f;
     }   
 }
 

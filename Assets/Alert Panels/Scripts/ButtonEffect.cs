@@ -28,7 +28,7 @@ namespace com.ondad.alertpanels
             // Cancel any existing tween
             LeanTween.cancel(tweenId);
             // Create new tween with bounce effect
-            tweenId = LeanTween.scale(eventData.pointerEnter.gameObject, Vector3.one * AlertPanel_Config.Instance.alertConfig.uiButtonHoverScale, AlertPanel_Config.Instance.alertConfig.uiAnimSpeed)
+            tweenId = LeanTween.scale(eventData.pointerEnter.gameObject, Vector3.one * AlertPanel_Config.Instance.alertConfig.uiButtonHoverScale, AlertPanel_Config.Instance.alertConfig.uiBtnAnimSpeed)
                 .setEase(LeanTweenType.easeOutBounce) // Bounce effect when scaling up
                 .setOvershoot(bounceStrength) // Adjust bounce intensity
                 .id;
@@ -40,7 +40,7 @@ namespace com.ondad.alertpanels
             LeanTween.cancel(tweenId);
 
             // Create new tween with bounce effect
-            tweenId = LeanTween.scale(eventData.pointerEnter.gameObject, Vector3.one * initScale, AlertPanel_Config.Instance.alertConfig.uiAnimSpeed)
+            tweenId = LeanTween.scale(eventData.pointerEnter.gameObject, Vector3.one * initScale, AlertPanel_Config.Instance.alertConfig.uiBtnAnimSpeed)
                 .setEase(LeanTweenType.easeOutBounce) // Bounce effect when scaling down
                 .setOvershoot(bounceStrength) // Adjust bounce intensity
                 .id;

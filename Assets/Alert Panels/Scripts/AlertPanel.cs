@@ -1,38 +1,79 @@
-using System.Collections;
-using System.Collections.Generic;
+using System;
+using TMPro;
 using UnityEngine;
-using UnityEngine.EventSystems;
+using UnityEngine.UI;
 
 namespace com.ondad.alertpanels
 {
     public class AlertPanel : MonoBehaviour
     {
-        private GameObject _pointedGO;
-        private Vector2 _pointedGOinitScale;
+        [SerializeField] private Button exitBtn;
+        [SerializeField] private TextMeshProUGUI bodyBtn;
 
-        public void OnHover(BaseEventData eventData)
+        private Vector2 initScale = Vector2.zero;
+        private int tweenId;
+        private float bounceStrength = 0.5f;
+        private Action exitAction;
+
+        private void Awake()
         {
-            Debug.Log("Hovers!");
-
-            _pointedGO = eventData.selectedObject;
-            Debug.Log(_pointedGO.name);
-            _pointedGOinitScale = _pointedGO.transform.localScale;
-            _pointedGO.transform.localScale = _pointedGOinitScale * 1.1f;
-
+            initScale = transform.localScale;
+            exitBtn.onClick.AddListener(ExitPanel);
         }
 
-        public void OnExitHover()
+        public void ShowPanel(string bodyContent, Action exitAction = null)
         {
-            if (_pointedGO != null)
+            bodyBtn.text = bodyContent;
+
+            if (exitAction != null)
             {
-                _pointedGO.transform.localScale = _pointedGOinitScale;
-                _pointedGO = null;
+                this.exitAction = exitAction;
+            }
+
+            ShowAnimation();
+        }
+
+        public void ExitPanel()
+        {
+            HideAnimation();
+
+            if (exitAction != null)
+            {
+                exitAction.Invoke();
+                exitAction = null;
             }
         }
 
-        public void OnClick()
+        void ShowAnimation()
         {
+            LeanTween.cancel(tweenId);
+            EnablePanel();
 
+            tweenId = LeanTween.scale(gameObject, initScale, AlertPanel_Config.Instance.alertConfig.uiPanelAnimSpeed)
+                .setEase(LeanTweenType.easeInBounce)
+                .setOvershoot(bounceStrength)
+                .id;
+        }
+
+        void HideAnimation()
+        {
+            LeanTween.cancel(tweenId);
+
+            tweenId = LeanTween.scale(gameObject, Vector2.zero, AlertPanel_Config.Instance.alertConfig.uiPanelAnimSpeed)
+                .setEase(LeanTweenType.easeOutBounce)
+                .setOvershoot(bounceStrength).setOnComplete(DisablePanel)
+                .id;
+        }
+
+        protected void EnablePanel()
+        {
+            AlertManager.GetInstance().Enable_Disable_BlurImg(true);
+            gameObject.SetActive(true);
+        }
+        protected void DisablePanel()
+        {
+            gameObject.SetActive(false);
+            AlertManager.GetInstance().Enable_Disable_BlurImg(false);
         }
     }
 }
