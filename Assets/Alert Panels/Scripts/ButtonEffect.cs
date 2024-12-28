@@ -15,6 +15,24 @@ namespace com.ondad.alertpanels
         {
             initScale = transform.localScale.x;
 
+            EventTrigger eventTrigger = gameObject.AddComponent<EventTrigger>();
+
+            EventTrigger.Entry pointerEnterEntry = new EventTrigger.Entry
+            {
+                eventID = EventTriggerType.PointerEnter
+            };
+
+            pointerEnterEntry.callback.AddListener((eventData) => { OnPointerEnter((PointerEventData)eventData); });
+
+            EventTrigger.Entry pointerExitEntry = new EventTrigger.Entry
+            {
+                eventID = EventTriggerType.PointerExit
+            };
+
+            pointerExitEntry.callback.AddListener((eventData) => { OnPointerExit((PointerEventData)eventData); });
+
+            eventTrigger.triggers.Add(pointerEnterEntry);
+            eventTrigger.triggers.Add(pointerExitEntry);
         }
 
         private void OnDisable()
@@ -23,28 +41,23 @@ namespace com.ondad.alertpanels
             LeanTween.cancel(tweenId);
         }
 
-        public void OnHover(PointerEventData eventData)
+        public void OnPointerEnter(PointerEventData eventData)
         {
-            // Cancel any existing tween
-            if (eventData.pointerEnter.GetComponent<Button>() == null) return;
-
             LeanTween.cancel(tweenId);
             // Create new tween with bounce effect
-            tweenId = LeanTween.scale(eventData.pointerEnter.gameObject, Vector3.one * AlertPanel_Config.Instance.alertConfig.uiButtonHoverScale, AlertPanel_Config.Instance.alertConfig.uiBtnAnimSpeed)
+            tweenId = LeanTween.scale(gameObject, Vector3.one * AlertPanel_Config.Instance.alertConfig.uiButtonHoverScale, AlertPanel_Config.Instance.alertConfig.uiBtnAnimSpeed)
                 .setEase(LeanTweenType.easeOutBounce) // Bounce effect when scaling up
                 .setOvershoot(bounceStrength) // Adjust bounce intensity
                 .id;
         }
 
-        public void OnExitHover(PointerEventData eventData)
+        public void OnPointerExit(PointerEventData eventData)
         {
-            if (eventData.pointerEnter.GetComponent<Button>() == null) return;
-
             // Cancel any existing tween
             LeanTween.cancel(tweenId);
 
             // Create new tween with bounce effect
-            tweenId = LeanTween.scale(eventData.pointerEnter.gameObject, Vector3.one * initScale, AlertPanel_Config.Instance.alertConfig.uiBtnAnimSpeed)
+            tweenId = LeanTween.scale(gameObject, Vector3.one * initScale, AlertPanel_Config.Instance.alertConfig.uiBtnAnimSpeed)
                 .setEase(LeanTweenType.easeOutBounce) // Bounce effect when scaling down
                 .setOvershoot(bounceStrength) // Adjust bounce intensity
                 .id;

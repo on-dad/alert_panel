@@ -13,7 +13,7 @@ namespace com.ondad.alertpanels
 
         public void ShowWarningPanelInfo()
         {
-            AlertManager.GetInstance().ShowInfoPanel("Test");
+            AlertManager.GetInstance().ShowWarningPanel("Test");
         }
     }
 }
