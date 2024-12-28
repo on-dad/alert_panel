@@ -21,9 +21,9 @@ namespace com.ondad.alertpanels
             AlertManager.GetInstance().ShowErrorPanel("This is an Error Panel");
         }
 
-        public void ShowWarningPanelInfo()
+        public void ShowPanelConfirmation()
         {
-            AlertManager.GetInstance().ShowWarningPanel("This is a warning Panel");
+            AlertManager.GetInstance().ShowConfirmationPanel("Are you sure ?");
         }
     }
 }

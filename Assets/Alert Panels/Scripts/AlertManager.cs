@@ -17,6 +17,8 @@ namespace com.ondad.alertpanels
         private AlertPanel_Warning alertWarning;
         [SerializeField]
         private AlertPanel_Error alertError;
+        [SerializeField]
+        private AlertPanel_Confirmation alertConfirmation;
 
         private static AlertManager _instance;
 
@@ -46,9 +48,9 @@ namespace com.ondad.alertpanels
         {
             alertError.ShowPanel(bodyContent, exitAction, okeyAction);
         }
-        public void ShowConfirmationPanel(string bodyContent, Action exitAction = null, Action okeyAction = null)
+        public void ShowConfirmationPanel(string bodyContent, Action exitAction = null, Action okeyAction = null, Action cancelAction = null)
         {
-            alertInfo.ShowPanel(bodyContent, exitAction, okeyAction);
+            alertConfirmation.ShowPanel(bodyContent, exitAction, okeyAction,cancelAction);
         }
 
     }
