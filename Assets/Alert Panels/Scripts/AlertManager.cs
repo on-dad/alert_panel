@@ -1,7 +1,4 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
 
 namespace com.ondad.alertpanels
@@ -50,7 +47,7 @@ namespace com.ondad.alertpanels
         }
         public void ShowConfirmationPanel(string bodyContent, Action exitAction = null, Action okeyAction = null, Action cancelAction = null)
         {
-            alertConfirmation.ShowPanel(bodyContent, exitAction, okeyAction,cancelAction);
+            alertConfirmation.ShowPanel(bodyContent, exitAction, okeyAction, cancelAction);
         }
 
     }
